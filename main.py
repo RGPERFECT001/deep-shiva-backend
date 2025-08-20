@@ -59,5 +59,14 @@ def clinics_hospitals(
     else:
         return {"results": [], "message": "No clinics or hospitals found within the specified radius."}
 
+@app.get("/")
+def root():
+    """
+    Root endpoint to check if the API is running.
+    """
+    return {"message": "Welcome to the Clinics and Hospitals API. Use /clinics_hospitals to find nearby clinics and hospitals."}
+
+
 if __name__ == "__main__":
+
     uvicorn.run(app, host="0.0.0.0", port=int(sys.argv[1]) if len(sys.argv) > 1 else 8080)
