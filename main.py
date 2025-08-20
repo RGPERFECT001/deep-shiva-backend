@@ -1,10 +1,26 @@
 from fastapi import FastAPI, Query
 from typing import List, Dict, Optional
+from fastapi.middleware.cors import CORSMiddleware
 import requests
 import uvicorn
 import sys
 
 app = FastAPI()
+
+
+origins = [
+    "http://localhost:8080", # Your frontend's local development address
+    # "https://your-deployed-frontend.com", # TODO: Add your deployed frontend URL here later
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"], # Allows all methods (GET, POST, etc.)
+    allow_headers=["*"], # Allows all headers
+)
+
 
 def get_location_suggestions(latitude: float, longitude: float, radius: int = 2000) -> List[Dict]:
     """
